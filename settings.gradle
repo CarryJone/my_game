@@ -1,0 +1,1 @@
+include ':app', ':app_bo1', ':app_game', ':my_game', ':firebace_login'
