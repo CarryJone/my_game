@@ -117,7 +117,7 @@ public class MathGame extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem m1 = menu.add(1, 1, 1, "重新開始");
+        MenuItem m1 = menu.add(1, 1, 1, "開始遊戲");
         m1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         MenuItem m2 = menu.add(2, 2, 2, "遊戲說明");
         m2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -153,13 +153,14 @@ public class MathGame extends AppCompatActivity {
                 textView4.setText("");
                 break;
             case R.id.enter:
-                //使用計算API
+
                 double answer = new ExpressionBuilder(textView2.getText().toString()).build().evaluate();
                 if (textView4.getText().toString().equals("")) {
                     return;
                 }
-                int num = Integer.parseInt(textView4.getText().toString());
-                if (answer == num) {
+                int contanswer = Integer.parseInt(textView4.getText().toString());
+
+                if (answer == contanswer) {
                     handler.postDelayed(r, 0);
                     textView4.setText("");
                     fraction++;
@@ -185,13 +186,46 @@ public class MathGame extends AppCompatActivity {
         }
     }
 
+
+
+
+
+
     Runnable r = new Runnable() {
         @Override
         public void run() {
-            int a = new Random().nextInt(50) + 1;
-            int b = new Random().nextInt(50) + 1;
-            textView2.setText(a + "+" + b);
-            player.start();
+            int num = new Random().nextInt(4)+1;
+            int a = 0;
+            int b = 0;
+            switch (num){
+                case 1:
+                    a = new Random().nextInt(50) + 1;
+                    b = new Random().nextInt(50) + 1;
+                    textView2.setText(a + "+" + b);
+
+                    break;
+                case 2:
+                    do{
+                        a = new Random().nextInt(50) + 1;
+                        b = new Random().nextInt(50) + 1;
+                    }while ((a-b)<=0);
+                    textView2.setText(a + "-" + b);
+
+                    break;
+                case 3:
+                    a = new Random().nextInt(9)+1;
+                    b = new Random().nextInt(20) + 1;
+                    textView2.setText(a + "*" + b);
+                    break;
+                case 4:
+                    do{
+                        a = new Random().nextInt(100) + 1;
+                        b = new Random().nextInt(100) + 2;
+                    }while((a%b)!=0);
+                    textView2.setText(a + "/" + b);
+                    break;
+            }
+
         }
     };
 

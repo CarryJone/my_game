@@ -3,10 +3,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyApplication2.iml" filepath="$PROJECT_DIR$/MyApplication2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mygame.iml" filepath="$PROJECT_DIR$/Mygame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app_bo1/app_bo1.iml" filepath="$PROJECT_DIR$/app_bo1/app_bo1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app_bo1/app_bo1.iml" filepath="$PROJECT_DIR$/app_bo1/app_bo1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app_game/app_game.iml" filepath="$PROJECT_DIR$/app_game/app_game.iml" />
       <module fileurl="file://$PROJECT_DIR$/app_game/app_game.iml" filepath="$PROJECT_DIR$/app_game/app_game.iml" />
       <module fileurl="file://$PROJECT_DIR$/firebace_login/firebace_login.iml" filepath="$PROJECT_DIR$/firebace_login/firebace_login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firebace_login/firebace_login.iml" filepath="$PROJECT_DIR$/firebace_login/firebace_login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my_game/my_game.iml" filepath="$PROJECT_DIR$/my_game/my_game.iml" />
       <module fileurl="file://$PROJECT_DIR$/my_game/my_game.iml" filepath="$PROJECT_DIR$/my_game/my_game.iml" />
     </modules>
   </component>
