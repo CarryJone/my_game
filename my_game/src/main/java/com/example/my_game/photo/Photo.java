@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
 import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,6 +22,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.example.my_game.R;
+import com.example.my_game.UserModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +44,7 @@ public class Photo extends AppCompatActivity {
     private SQLiteDatabase db;
     private int num = 3;
     private MediaPlayer mp;
+    private UserModel model;
     final int[] ar = {R.drawable.cat, R.drawable.dog, R.drawable.images, R.drawable.t01, R.drawable.t02, R.drawable.t03
             , R.drawable.t04, R.drawable.t05, R.drawable.t06, R.drawable.t07}; //圖片
     final int[] ar1 = {R.drawable.b01,R.drawable.b02,R.drawable.b03,R.drawable.b04,R.drawable.b05,R.drawable.b06,R.drawable.b07,R.drawable.b08,R.drawable.b09,R.drawable.b10};
@@ -53,6 +54,7 @@ public class Photo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
         context = this;
+        model = UserModel.getInstence();
         setTitle("找相同圖");
         chronometer = (Chronometer) findViewById(R.id.chronometer2);
         list = new ArrayList<>();
@@ -71,15 +73,10 @@ public class Photo extends AppCompatActivity {
         }//將資料轉成Map放入list
 //
 
-        //context, 要放的東西 , 放東西的容器 , 要放的東西名子  , 要放的容器 名子順序與容器照排會對應到相對得位子
+
 
 
         play();
-
-
-
-
-
         gv01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,13 +105,16 @@ public class Photo extends AppCompatActivity {
 
     }
 
-    public void play() {
+    public void play(){
         num = new Random().nextInt(10)+1;
+        //context, 要放的東西 , 放東西的容器 , 要放的東西名子  , 要放的容器 名子順序與容器照排會對應到相對得位子
         adapter = new SimpleAdapter(context, list, R.layout.imrow, new String[]{num>=5?"image":"image2"}, new int[]{R.id.imageView});
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
         gv01.setAdapter(adapter);
         Collections.shuffle(list);//洗牌
         adapter.notifyDataSetChanged();//更新排序畫面
+
+
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
         nextInt = 0;
@@ -127,15 +127,15 @@ public class Photo extends AppCompatActivity {
     }
     public void store(final String temp){
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        final EditText editText = new EditText(context);
-        editText.setHint("請輸入暱稱");
-        builder.setView(editText);
+//        final EditText editText = new EditText(context);
+//        editText.setHint("請輸入暱稱");
+//        builder.setView(editText);
         builder.setTitle("恭喜過關");
         builder.setMessage("所花時間 "+temp);
         builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = editText.getText().toString();
+                String name = model.getName();
                 if(name != null || name.equals("")) {
                     Object[] arge = {name,temp};
                     db.execSQL("insert into photo(name,number) Values(?,?)",arge);

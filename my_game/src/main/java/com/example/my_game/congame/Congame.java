@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -17,11 +18,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.my_game.R;
+import com.example.my_game.UserModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,12 +38,15 @@ public class Congame extends AppCompatActivity {
     private SoundPool soundPool;
     private int select09,jump01;
     private SQLiteDatabase db;
+    private UserModel muserdate;
+    private int data2 = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congame);
         context = this;
+        muserdate = UserModel.getInstence();
         setTitle("照順序點");
         gridView = (GridView) findViewById(R.id.gridviewcon1);
         chronometercon = (Chronometer) findViewById(R.id.chronometercon1);
@@ -62,41 +66,52 @@ public class Congame extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int data = (Integer) parent.getItemAtPosition(position);
-                if (data == num) {
-                    TextView textView = (TextView) view;
-                    textView.setTextColor(Color.RED);
-                    soundPool.play(select09,1,1,0,0,1);
-                    if (data == 25) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("恭喜過關");
-                        builder.setIcon(R.drawable.drum);
-                        builder.setMessage("共花了"+chronometercon.getText().toString()+"秒完成");
-                        final EditText editText = new EditText(context);
-                        editText.setHint("請輸入暱稱");
-                        builder.setView(editText);
-                        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String name = editText.getText().toString();
-                                if(name != null || name.equals("")) {
-                                    Object[] arge = {name,chronometercon.getText().toString()};
-                                    db.execSQL("insert into continu(name,number) Values(?,?)",arge);
-                                }
-                            }
-                        });
-                        builder.show();
-                        chronometercon.stop();
-                        num = 1;
+                TextView textView = (TextView) view;
+                Log.d("mycongame","data:"+data+
+                        "\ndata2:"+data2+
+                        "\ntextview:"+Integer.parseInt(textView.getText().toString())+
+                        "\nnum:"+num);
+                if (data == num ||data+25 ==num ) {
 
-                    }
+                    soundPool.play(select09,1,1,0,0,1);
                     num++;
+                    if(data2 <=25 ){
+                        textView.setText(data+25+"");
+                        textView.setTextColor(Color.BLUE);
+                    }else if(data2 >25 && data2 < 50){
+                        textView.setTextColor(Color.RED);
+                    }else if(data2 == 50){
+                        textView.setTextColor(Color.RED);
+                        gameover();
+                    }
+                    data2++;
                 }else{
                     soundPool.play(jump01,1,1,0,0,1);
                 }
-
-
             }
         });
+    }
+    public void gameover(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("恭喜過關");
+        builder.setIcon(R.drawable.drum);
+        builder.setMessage("共花了"+chronometercon.getText().toString()+"秒完成");
+//                        final EditText editText = new EditText(context);
+//                        editText.setHint("請輸入暱稱");
+//                        builder.setView(editText);
+        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = muserdate.getName();
+                if(name != null || name.equals("")) {
+                    Object[] arge = {name,chronometercon.getText().toString()};
+                    db.execSQL("insert into continu(name,number) Values(?,?)",arge);
+                }
+            }
+        });
+        builder.show();
+        chronometercon.stop();
+        num = 1;
     }
 
     public void play() {

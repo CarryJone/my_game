@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.my_game.R;
+import com.example.my_game.UserModel;
 
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -31,12 +33,15 @@ public class MathGame extends AppCompatActivity {
     private MediaPlayer player;
     private  String name = "tim";
     private SQLiteDatabase db;
+    public UserModel muserdate;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math_game);
+        muserdate = UserModel.getInstence();
+        Log.d("MyDebug",muserdate.getName());
         setTitle("算數遊戲");
         textView = (TextView) findViewById(R.id.textView);
         textView2 = (TextView) findViewById(R.id.textView2);

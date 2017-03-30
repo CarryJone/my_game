@@ -1,65 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/activity_main"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.example.my_game.MainActivity"
     android:background="@drawable/back">
 
-    <Button
-        android:text="1.算數遊戲"
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Title"
+        android:onClick="onClick"
+        android:textSize="30sp" />
+
+    <Button
         android:id="@+id/b01"
         style="?android:attr/borderlessButtonStyle"
-        android:textSize="16pt"
-        android:textColor="#00ff00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:onClick="onClick" />
+        android:onClick="onClick"
+        android:text="1.算數遊戲"
+        android:textColor="#00ff00"
+        android:textSize="16pt" />
 
     <Button
-        android:text="2.找相同圖"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/b02"
-        android:layout_marginTop="23dp"
         style="?android:attr/borderlessButtonStyle"
-        android:textSize="16pt"
-        android:textColor="#ff00ff"
-        android:layout_below="@+id/b01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/b01"
         android:layout_alignStart="@+id/b01"
-        android:onClick="onClick" />
+        android:layout_below="@+id/b01"
+        android:layout_marginTop="23dp"
+        android:onClick="onClick"
+        android:text="2.找相同圖"
+        android:textColor="#ff00ff"
+        android:textSize="16pt" />
 
     <Button
-        android:text="4.分數查詢"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:id="@+id/b04"
-        style="?android:attr/borderlessButtonStyle"
-        android:textSize="16pt"
-        android:textColor="#0920ff"
-        android:layout_below="@+id/b03"
-        android:layout_alignLeft="@+id/b03"
-        android:layout_alignStart="@+id/b03"
-        android:onClick="onClick" />
-
-    <Button
-        android:text="3.照順序點"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/b03"
         style="?android:attr/borderlessButtonStyle"
-        android:textSize="16pt"
-        android:textColor="#ffff00"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/b02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/b02"
         android:layout_alignStart="@+id/b02"
-        android:onClick="onClick" />
-</RelativeLayout>
+        android:layout_below="@+id/b02"
+        android:layout_marginTop="30dp"
+        android:onClick="onClick"
+        android:text="3.照順序點"
+        android:textColor="#ffff00"
+        android:textSize="16pt" />
+
+    <Button
+        android:id="@+id/b04"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/b03"
+        android:layout_alignStart="@+id/b03"
+        android:layout_below="@+id/b03"
+        android:layout_marginTop="30dp"
+        android:onClick="onClick"
+        android:text="4.分數查詢"
+        android:textColor="#0920ff"
+        android:textSize="16pt" />
+
+</LinearLayout>
