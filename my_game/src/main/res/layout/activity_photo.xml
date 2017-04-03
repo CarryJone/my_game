@@ -43,14 +43,32 @@
             android:id="@+id/b02"
             android:layout_weight="1"
             android:onClick="onClick2" />
+
     </LinearLayout>
 
-    <GridView
-        android:numColumns="4"
-        android:id="@+id/gv01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/chronometer2" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <GridView
+            android:id="@+id/gv01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/chronometer2"
+            android:layout_centerHorizontal="true"
+            android:numColumns="4"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="0"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="200sp"
+            android:visibility="visible" />
+    </RelativeLayout>
 
 </LinearLayout>
