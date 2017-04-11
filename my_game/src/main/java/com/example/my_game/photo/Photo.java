@@ -215,6 +215,7 @@ public class Photo extends AppCompatActivity {
     }
     public void store(final String temp){
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
 //        final EditText editText = new EditText(context);
 //        editText.setHint("請輸入暱稱");
 //        builder.setView(editText);

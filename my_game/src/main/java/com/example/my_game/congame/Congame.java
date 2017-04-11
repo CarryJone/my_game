@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 import com.example.my_game.R;
 import com.example.my_game.UserModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +42,8 @@ public class Congame extends AppCompatActivity {
     private SQLiteDatabase db;
     private UserModel muserdate;
     private int data2 = 1;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("message");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,7 @@ public class Congame extends AppCompatActivity {
     }
     public void gameover(){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
         builder.setTitle("恭喜過關");
         builder.setIcon(R.drawable.drum);
         builder.setMessage("共花了"+chronometercon.getText().toString()+"秒完成");
