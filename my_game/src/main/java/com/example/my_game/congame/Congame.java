@@ -21,19 +21,21 @@ import android.widget.Chronometer;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.my_game.FirebaseModel;
+import com.example.my_game.Myapplication;
 import com.example.my_game.R;
 import com.example.my_game.UserModel;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Congame extends AppCompatActivity {
     private Context context;
     private GridView gridView;
     private List<Integer> list;
+    private UserModel model;
     private ArrayAdapter<Integer> adapter;
     private Chronometer chronometercon;
     private int num = 1;
@@ -42,15 +44,20 @@ public class Congame extends AppCompatActivity {
     private SQLiteDatabase db;
     private UserModel muserdate;
     private int data2 = 1;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
+    private Myapplication myapplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congame);
         context = this;
+
+
+        myapplication = Myapplication.getInstence();
         muserdate = UserModel.getInstence();
+
+
+
         setTitle("照順序點");
         gridView = (GridView) findViewById(R.id.gridviewcon1);
         chronometercon = (Chronometer) findViewById(R.id.chronometercon1);
@@ -60,7 +67,6 @@ public class Congame extends AppCompatActivity {
         ConDB helper = new ConDB(context, "continu.db", null, 1);
         //讀取資料庫
         db = helper.getWritableDatabase();
-
         list = new ArrayList<>();
         for (int i = 1; i <= 25; i++) {
             list.add(i);
@@ -76,6 +82,9 @@ public class Congame extends AppCompatActivity {
                         "\ntextview:"+Integer.parseInt(textView.getText().toString())+
                         "\nnum:"+num);
                 if (data == num ||data+25 ==num ) {
+//                    if(data2 == 5){
+//                        gameover();
+//                    }
 
                     soundPool.play(select09,1,1,0,0,1);
                     num++;
@@ -109,8 +118,13 @@ public class Congame extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = muserdate.getName();
                 if(name != null || name.equals("")) {
-                    Object[] arge = {name,chronometercon.getText().toString()};
-                    db.execSQL("insert into continu(name,number) Values(?,?)",arge);
+//                    Object[] arge = {name,chronometercon.getText().toString()};
+//                    db.execSQL("insert into continu(name,number) Values(?,?)",arge);
+                    model = UserModel.getInstence();
+                    model.setFraction(chronometercon.getText().toString());
+                    model.setTime(new Date().toString());
+                    FirebaseModel.congamelist.add(model);
+                    FirebaseModel.congame.setValue(FirebaseModel.congamelist);
                 }
             }
         });

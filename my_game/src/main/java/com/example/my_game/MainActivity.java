@@ -19,10 +19,14 @@ public class MainActivity extends AppCompatActivity {
     private Myapplication myapplication;
     private long time = 0;
     private int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("MyDebug","MainonCreate");
+
+
         //設定隱藏標題
         getSupportActionBar().hide();
         //設定隱藏狀態
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         textView = (TextView) findViewById(R.id.tv_title);
         muserModel = UserModel.getInstence();
+        new Myservice(context);
         myapplication = Myapplication.getInstence();
     }
 
@@ -78,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("MyDebug :","mainonpause"+muserModel.getisfirst());
         if(myapplication.islogin()){
             Intent intent = new Intent(context,UserName.class);
             startActivityForResult(intent,101);
         }
         textView.setText("Hi "+muserModel.getName());
+
     }
 }
 

@@ -26,11 +26,9 @@ public class Fraction extends AppCompatActivity {
         setContentView(R.layout.activity_fraction);
         context = this;
         setTitle("分數查詢");
-        math();
-        photo();
-        continu();
-
-
+        mathgame();
+        photogame();
+        congame();
     }
     public void math(){
         //創建資料庫
@@ -148,5 +146,22 @@ public class Fraction extends AppCompatActivity {
         });
 
     }
+
+    public void mathgame(){
+        FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.mathgamelist);
+        ListView listView = (ListView) findViewById(R.id.math);
+        listView.setAdapter(adapter);
+    }
+    public void photogame(){
+        FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.phpotogamelist);
+        ListView listView = (ListView) findViewById(R.id.photo);
+        listView.setAdapter(adapter);
+    }
+    public void congame(){
+        FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.congamelist);
+        ListView listView = (ListView) findViewById(R.id.continuous1);
+        listView.setAdapter(adapter);
+    }
+
 
 }

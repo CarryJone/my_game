@@ -1,5 +1,8 @@
 package com.example.my_game;
 
+import android.content.Context;
+import android.util.Log;
+
 /**
  * Created by bryan on 2017/3/30.
  */
@@ -9,7 +12,6 @@ public class UserModel {
     private String name;
     private String fraction;
     private String time;
-
     public String getFraction() {
         return fraction;
     }
@@ -26,8 +28,10 @@ public class UserModel {
         this.time = time;
     }
 
-    private boolean isfirst = true;
+
     public static UserModel getInstence() {
+        Log.d("MyDebug","UserModel getInstence");
+
         return muserModel;
     }
 
@@ -39,11 +43,7 @@ public class UserModel {
         this.name = name;
     }
 
-    public boolean getisfirst() {
-        return isfirst;
-    }
 
-    public void setIsfirst(boolean isfirst) {
-        this.isfirst = isfirst;
-    }
+
+
 }

@@ -14,15 +14,21 @@ import android.util.Log;
 public class Myapplication extends Application {
     private static Myapplication myapplication;
     private UserModel userModel;
+    private FirebaseModel firebaseModel;
     public static Myapplication getInstence(){
         return myapplication;
     }
     private SharedPreferences sp;
 
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
         myapplication = this;
+
+
         userModel = UserModel.getInstence();
         sp = getSharedPreferences("myname",Context.MODE_PRIVATE);
         islogin();
@@ -53,7 +59,6 @@ public class Myapplication extends Application {
         String name = sp.getString("name","");
         Log.d("MyDebug :","islogin"+name);
         if(name.equals("")||name.equals(null)){
-            userModel.setIsfirst(true);
             return true;
         }else{
             userModel.setName(name);

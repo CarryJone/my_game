@@ -17,11 +17,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.my_game.FirebaseModel;
 import com.example.my_game.R;
 import com.example.my_game.UserModel;
 
 import net.objecthunter.exp4j.ExpressionBuilder;
 
+import java.util.Date;
 import java.util.Random;
 
 public class MathGame extends AppCompatActivity {
@@ -115,9 +117,15 @@ public class MathGame extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        name = data.getStringExtra("name").toString();
-        Object[] arge = {name,fraction};
-        db.execSQL("insert into game(name,number) values (?,?)", arge);
+//        name = data.getStringExtra("name").toString();
+//        Object[] arge = {name,fraction};
+//        db.execSQL("insert into game(name,number) values (?,?)", arge);
+        UserModel model = UserModel.getInstence();
+        model.setFraction(fraction+"");
+        model.setTime(new Date().toString());
+        FirebaseModel.mathgamelist.add(model);
+        FirebaseModel.mathgame.setValue(FirebaseModel.mathgamelist);
+
     }
 
     @Override

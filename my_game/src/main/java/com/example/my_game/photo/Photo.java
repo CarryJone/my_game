@@ -23,11 +23,13 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.my_game.FirebaseModel;
 import com.example.my_game.R;
 import com.example.my_game.UserModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -224,11 +226,16 @@ public class Photo extends AppCompatActivity {
         builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = model.getName();
-                if(name != null || name.equals("")) {
-                    Object[] arge = {name,temp};
-                    db.execSQL("insert into photo(name,number) Values(?,?)",arge);
-                }
+//                String name = model.getName();
+//                if(name != null || name.equals("")) {
+//                    Object[] arge = {name,temp};
+//                    db.execSQL("insert into photo(name,number) Values(?,?)",arge);
+//                }
+                UserModel model = UserModel.getInstence();
+                model.setFraction(temp);
+                model.setTime(new Date().toString());
+                FirebaseModel.phpotogamelist.add(model);
+                FirebaseModel.photogame.setValue(FirebaseModel.phpotogamelist);
             }
         });
         builder.setNegativeButton("取消",null);
