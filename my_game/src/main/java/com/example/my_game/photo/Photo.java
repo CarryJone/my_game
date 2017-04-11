@@ -70,12 +70,23 @@ public class Photo extends AppCompatActivity {
         handler = new Handler();
         gv01 = (GridView) findViewById(R.id.gv01);
         textView = (TextView) findViewById(R.id.textView20);
-        ctime = new CountDownTimer(10000,1000) {
+        ctime = new CountDownTimer(11000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 count = -1;
                 textView.setVisibility(View.VISIBLE);
-                textView.setText(millisUntilFinished/1000+"");
+                int n = ((int)millisUntilFinished/1000);
+                if(n != 1) {
+                    textView.setText(millisUntilFinished / 1000 + "");
+                }else{
+                    textView.setText("1");
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                           textView.setText("Go");
+                        }
+                    },500);
+                }
             }
 
             @Override

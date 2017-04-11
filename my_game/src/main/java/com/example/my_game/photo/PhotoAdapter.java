@@ -46,7 +46,9 @@ public class PhotoAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         handler = new android.os.Handler();
         View v = LayoutInflater.from(mcontext).inflate(R.layout.imrow, null);
+
         final ImageView image = (ImageView) v.findViewById(R.id.imageView);
+
         Map<String, Object> map = new HashMap<>();
         map = list.get(position);
         final int photo = (Integer) map.get("image");
