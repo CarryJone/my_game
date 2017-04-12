@@ -24,7 +24,16 @@ public class FirebaseModel {
     public static List<UserModel> mathgamelist = new ArrayList<>();
     public static List<UserModel> phpotogamelist = new ArrayList<>();
 
+    public static boolean issetdata(){
+        if(congamelist.size()>0||mathgamelist.size()>0||phpotogamelist.size()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public static FirebaseModel getInstence(){return firebaseModel;}
-
+    public static void upcongame(){congame.setValue(congamelist);}
+    public static void upmathgame(){mathgame.setValue(mathgamelist);}
+    public static void upphpotogame(){photogame.setValue(phpotogamelist);}
 }

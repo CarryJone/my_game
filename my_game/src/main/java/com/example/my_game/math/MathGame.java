@@ -124,7 +124,7 @@ public class MathGame extends AppCompatActivity {
         model.setFraction(fraction+"");
         model.setTime(new Date().toString());
         FirebaseModel.mathgamelist.add(model);
-        FirebaseModel.mathgame.setValue(FirebaseModel.mathgamelist);
+        FirebaseModel.upmathgame();
 
     }
 

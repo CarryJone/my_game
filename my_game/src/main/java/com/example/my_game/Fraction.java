@@ -1,12 +1,15 @@
 package com.example.my_game;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
@@ -20,16 +23,20 @@ import com.example.my_game.photo.PhotoDB;
 public class Fraction extends AppCompatActivity {
     private Context context;
     private int _id =-1;
+    private Handler handler;
+    private ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fraction);
         context = this;
         setTitle("分數查詢");
-        mathgame();
-        photogame();
-        congame();
+        handler = new Handler();
+        dialog = new ProgressDialog(context);
+
     }
+
+
     public void math(){
         //創建資料庫
         MathDB helper = new MathDB(context,"game.db",null,1);
@@ -148,20 +155,105 @@ public class Fraction extends AppCompatActivity {
     }
 
     public void mathgame(){
-        FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.mathgamelist);
+        Log.d("MyDebug","Fraction mathgame");
+        final FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.mathgamelist);
         ListView listView = (ListView) findViewById(R.id.math);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(false);
+                builder.setTitle("刪除紀錄");
+                builder.setMessage("是否刪除紀錄");
+                builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseModel.mathgamelist.remove(position);
+                        FirebaseModel.upmathgame();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNeutralButton("取消",null);
+                builder.show();
+            }
+        });
+
+
     }
     public void photogame(){
-        FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.phpotogamelist);
+        final FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.phpotogamelist);
         ListView listView = (ListView) findViewById(R.id.photo);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(false);
+                builder.setTitle("刪除紀錄");
+                builder.setMessage("是否刪除紀錄");
+                builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseModel.phpotogamelist.remove(position);
+                        FirebaseModel.upphpotogame();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNeutralButton("取消",null);
+                builder.show();
+            }
+        });
+        adapter.notifyDataSetChanged();
     }
     public void congame(){
-        FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.congamelist);
+        final FractionAdapter adapter = new FractionAdapter(context,FirebaseModel.congamelist);
         ListView listView = (ListView) findViewById(R.id.continuous1);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(false);
+                builder.setTitle("刪除紀錄");
+                builder.setMessage("是否刪除紀錄");
+                builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseModel.congamelist.remove(position);
+                        FirebaseModel.upcongame();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNeutralButton("取消",null);
+                builder.show();
+            }
+        });
+        adapter.notifyDataSetChanged();
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.postDelayed(isdata,0);
+        dialog.setTitle("請稍後");
+        dialog.setMessage("資料讀取中");
+        dialog.show();
+    }
+
+    private Runnable isdata = new Runnable() {
+        @Override
+        public void run() {
+            if(!FirebaseModel.issetdata()){
+                handler.postDelayed(isdata,1000);
+            }else{
+                handler.removeCallbacks(isdata);
+                dialog.dismiss();
+                mathgame();
+                photogame();
+                congame();
+            }
+        }
+    };
 }

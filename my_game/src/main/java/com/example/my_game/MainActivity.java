@@ -34,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         textView = (TextView) findViewById(R.id.tv_title);
         muserModel = UserModel.getInstence();
-        new Myservice(context);
+        //開啟Service 抓取FB資料
+        Intent intent = new Intent(this,Myservice.class);
+        startService(intent);
+
         myapplication = Myapplication.getInstence();
     }
 
@@ -89,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
         }
         textView.setText("Hi "+muserModel.getName());
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //關閉Service
+        Intent intent = new Intent(this,Myservice.class);
+        stopService(intent);
     }
 }
 

@@ -235,7 +235,7 @@ public class Photo extends AppCompatActivity {
                 model.setFraction(temp);
                 model.setTime(new Date().toString());
                 FirebaseModel.phpotogamelist.add(model);
-                FirebaseModel.photogame.setValue(FirebaseModel.phpotogamelist);
+                FirebaseModel.upphpotogame();
             }
         });
         builder.setNegativeButton("取消",null);

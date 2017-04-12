@@ -124,7 +124,7 @@ public class Congame extends AppCompatActivity {
                     model.setFraction(chronometercon.getText().toString());
                     model.setTime(new Date().toString());
                     FirebaseModel.congamelist.add(model);
-                    FirebaseModel.congame.setValue(FirebaseModel.congamelist);
+                    FirebaseModel.upcongame();
                 }
             }
         });
